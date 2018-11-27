@@ -122,8 +122,9 @@ class KindergardensController < ApplicationController
     @acci = Array.new
     @kind = Kindergarden.find(params[:id])
     
-    @kind.each do |k|
-      @acci.push(Frequent.find(k.fre.to_i))
+    @kin = @kind.fre
+    @kin.each do |k|
+      @acci.push(Frequent.find(k.to_i))
     end
     
     render json: @rev={ acci: @acci }
@@ -133,9 +134,13 @@ class KindergardensController < ApplicationController
     @pub = Array.new
     @kind = Kindergarden.find(params[:id])
     
-    @kin = @kin.dan
+    @kin = @kind.dan
+    # puts "@@@@@@@@@@@@@@@@@@#{@kin[0].to_i.class}@@@@@@@@@@@@@"
+    # i=0
     @kin.each do |k|
-      @pub.push(Dangers.find(k.to_i))
+      @pub.push(Danger.find(k.to_i))
+      # puts "@@@@@@@@@@@@@@@@#{@pub[i].x}@@@@#{@pub[i].y}@@@@@@@@@@@@@@@"
+      # i += 1
     end
     
     render json: @rev={ pub: @pub }
@@ -149,8 +154,9 @@ class KindergardensController < ApplicationController
     @scz = Array.new
     @kind = Kindergarden.find(params[:id])
     
-    @kind.each do |k|
-      @scz.push(SchoolZone.find(k.sch.to_i))
+    @kin = @kind.sch
+    @kin.each do |k|
+      @scz.push(SchoolZone.find(k.to_i))
     end
     
     render json: @rev={ sz: @scz }
